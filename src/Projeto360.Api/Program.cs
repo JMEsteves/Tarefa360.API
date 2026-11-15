@@ -48,6 +48,9 @@ builder.Services.AddScoped<IUsuarioServico, UsuarioServico>();
 builder.Services.AddScoped<IProjetoRepositorio, ProjetoRepositorio>();
 builder.Services.AddScoped<IProjetoServico, ProjetoServico>();
 
+builder.Services.AddScoped<IHistoriaRepositorio, HistoriaRepositorio>();
+builder.Services.AddScoped<IHistoriaServico, HistoriaServico>();
+
 var app = builder.Build();
 
 // Cria o banco e as tabelas automaticamente.
@@ -71,6 +74,14 @@ using (var escopo = app.Services.CreateScope())
             Id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
             Nome TEXT NOT NULL,
             Descricao TEXT NULL
+        );
+
+        CREATE TABLE IF NOT EXISTS Historias (
+            Id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+            Nome TEXT NOT NULL,
+            Descricao TEXT NULL,
+            ProjetoId INTEGER NOT NULL,
+            FOREIGN KEY (ProjetoId) REFERENCES Projetos (Id) ON DELETE CASCADE
         );
     ");
 }
