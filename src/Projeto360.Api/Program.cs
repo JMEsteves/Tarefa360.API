@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Projeto360.Aplicacao.Contratos;
 using Projeto360.Repositorio.Dados;
 using Projeto360.Repositorio.Repositorios;
-using Projeto360.Servicos.Servicos;
+using Projeto360.Aplicacao;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -38,18 +38,18 @@ builder.Services.AddDbContext<Projeto360Contexto>(opcoes =>
 
 // Injeção de dependência: tarefas.
 builder.Services.AddScoped<ITarefaRepositorio, TarefaRepositorio>();
-builder.Services.AddScoped<ITarefaServico, TarefaServico>();
+builder.Services.AddScoped<ITarefaAplicacao, TarefaAplicacao>();
 
 // Injeção de dependência: usuários.
 builder.Services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
-builder.Services.AddScoped<IUsuarioServico, UsuarioServico>();
+builder.Services.AddScoped<IUsuarioAplicacao, UsuarioAplicacao>();
 
 // Injeção de dependência: projetos.
 builder.Services.AddScoped<IProjetoRepositorio, ProjetoRepositorio>();
-builder.Services.AddScoped<IProjetoServico, ProjetoServico>();
+builder.Services.AddScoped<IProjetoAplicacao, ProjetoAplicacao>();
 
 builder.Services.AddScoped<IHistoriaRepositorio, HistoriaRepositorio>();
-builder.Services.AddScoped<IHistoriaServico, HistoriaServico>();
+builder.Services.AddScoped<IHistoriaAplicacao, HistoriaAplicacao>();
 
 var app = builder.Build();
 

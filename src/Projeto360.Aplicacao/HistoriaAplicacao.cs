@@ -2,13 +2,13 @@ using Projeto360.Aplicacao.Contratos;
 using Projeto360.Aplicacao.DTOs;
 using Projeto360.Dominio.Entidades;
 
-namespace Projeto360.Servicos.Servicos;
+namespace Projeto360.Aplicacao;
 
-public class HistoriaServico : IHistoriaServico
+public class HistoriaAplicacao : IHistoriaAplicacao
 {
     private readonly IHistoriaRepositorio _historiaRepositorio;
 
-    public HistoriaServico(IHistoriaRepositorio historiaRepositorio)
+    public HistoriaAplicacao(IHistoriaRepositorio historiaRepositorio)
     {
         _historiaRepositorio = historiaRepositorio;
     }

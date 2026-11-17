@@ -8,25 +8,25 @@ namespace Projeto360.Api.Controllers;
 [Route("api/[controller]")]
 public class ProjetoController : ControllerBase
 {
-    private readonly IProjetoServico _servico;
+    private readonly IProjetoAplicacao _aplicacao;
 
-    public ProjetoController(IProjetoServico servico)
+    public ProjetoController(IProjetoAplicacao aplicacao)
     {
-        _servico = servico;
+        _aplicacao = aplicacao;
     }
 
     // GET: api/projeto
     [HttpGet]
     public async Task<IActionResult> Listar()
     {
-        return Ok(await _servico.ListarAsync());
+        return Ok(await _aplicacao.ListarAsync());
     }
 
     // GET: api/projeto/1
     [HttpGet("{id}")]
     public async Task<IActionResult> ObterPorId(int id)
     {
-        var projeto = await _servico.ObterPorIdAsync(id);
+        var projeto = await _aplicacao.ObterPorIdAsync(id);
 
         if (projeto == null)
             return NotFound();
@@ -40,7 +40,7 @@ public class ProjetoController : ControllerBase
     {
         try
         {
-            var projeto = await _servico.CriarAsync(dto);
+            var projeto = await _aplicacao.CriarAsync(dto);
 
             return CreatedAtAction(nameof(ObterPorId), new { id = projeto.Id }, projeto);
         }
@@ -54,7 +54,7 @@ public class ProjetoController : ControllerBase
     [HttpPut("{id}")]
     public async Task<IActionResult> Editar(int id, [FromBody] CriarProjetoDto dto)
     {
-        var projeto = await _servico.EditarAsync(id, dto);
+        var projeto = await _aplicacao.EditarAsync(id, dto);
 
         if (projeto == null)
             return NotFound();
@@ -66,7 +66,7 @@ public class ProjetoController : ControllerBase
     [HttpDelete("{id}")]
     public async Task<IActionResult> Excluir(int id)
     {
-        var excluido = await _servico.ExcluirAsync(id);
+        var excluido = await _aplicacao.ExcluirAsync(id);
 
         if (!excluido)
             return NotFound();

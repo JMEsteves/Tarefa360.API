@@ -8,23 +8,23 @@ namespace Projeto360.Api.Controllers;
 [Route("api/[controller]")]
 public class HistoriaController : ControllerBase
 {
-    private readonly IHistoriaServico _servico;
+    private readonly IHistoriaAplicacao _aplicacao;
 
-    public HistoriaController(IHistoriaServico servico)
+    public HistoriaController(IHistoriaAplicacao aplicacao)
     {
-        _servico = servico;
+        _aplicacao = aplicacao;
     }
 
     [HttpGet]
     public async Task<IActionResult> Listar()
     {
-        return Ok(await _servico.ListarAsync());
+        return Ok(await _aplicacao.ListarAsync());
     }
 
     [HttpGet("{id}")]
     public async Task<IActionResult> ObterPorId(int id)
     {
-        var historia = await _servico.ObterPorIdAsync(id);
+        var historia = await _aplicacao.ObterPorIdAsync(id);
 
         if (historia == null)
             return NotFound();
@@ -37,7 +37,7 @@ public class HistoriaController : ControllerBase
     {
         try
         {
-            var historia = await _servico.CriarAsync(dto);
+            var historia = await _aplicacao.CriarAsync(dto);
 
             return CreatedAtAction(nameof(ObterPorId), new { id = historia.Id }, historia);
         }
@@ -52,7 +52,7 @@ public class HistoriaController : ControllerBase
     {
         try
         {
-            var historia = await _servico.EditarAsync(id, dto);
+            var historia = await _aplicacao.EditarAsync(id, dto);
 
             if (historia == null)
                 return NotFound();
@@ -68,7 +68,7 @@ public class HistoriaController : ControllerBase
     [HttpDelete("{id}")]
     public async Task<IActionResult> Excluir(int id)
     {
-        var excluido = await _servico.ExcluirAsync(id);
+        var excluido = await _aplicacao.ExcluirAsync(id);
 
         if (!excluido)
             return NotFound();

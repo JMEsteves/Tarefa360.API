@@ -2,7 +2,7 @@ using Projeto360.Aplicacao.DTOs;
 
 namespace Projeto360.Aplicacao.Contratos;
 
-public interface ITarefaServico
+public interface ITarefaAplicacao
 {
     Task<List<TarefaRespostaDto>> ListarAsync();
     Task<TarefaRespostaDto?> BuscarPorIdAsync(int id);

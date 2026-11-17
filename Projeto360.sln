@@ -10,8 +10,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Projeto360.Dominio", "src\P
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Projeto360.Repositorio", "src\Projeto360.Repositorio\Projeto360.Repositorio.csproj", "{A4444444-4444-4444-8444-444444444444}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Projeto360.Servicos", "src\Projeto360.Servicos\Projeto360.Servicos.csproj", "{A5555555-5555-4555-8555-555555555555}"
-EndProject
 Global
     GlobalSection(SolutionConfigurationPlatforms) = preSolution
         Debug|Any CPU = Debug|Any CPU
@@ -31,8 +29,5 @@ Global
         {A4444444-4444-4444-8444-444444444444}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
         {A4444444-4444-4444-8444-444444444444}.Debug|Any CPU.Build.0 = Debug|Any CPU
         {A4444444-4444-4444-8444-444444444444}.Release|Any CPU.ActiveCfg = Release|Any CPU
-        {A5555555-5555-4555-8555-555555555555}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-        {A5555555-5555-4555-8555-555555555555}.Debug|Any CPU.Build.0 = Debug|Any CPU
-        {A5555555-5555-4555-8555-555555555555}.Release|Any CPU.ActiveCfg = Release|Any CPU
     EndGlobalSection
 EndGlobal

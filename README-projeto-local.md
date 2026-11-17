@@ -1,6 +1,6 @@
 # Projeto360
 
-Projeto de gerenciamento de tarefas em .NET 10, organizado em cinco camadas/projetos.
+Projeto de gerenciamento de tarefas em .NET 10, organizado em quatro camadas/projetos.
 
 ## Requisitos
 - .NET SDK 10.0 instalado
@@ -33,9 +33,8 @@ O banco SQLite `projeto360.db` será criado automaticamente na pasta de execuç�
 
 ## Organização
 - `Projeto360.Dominio`: entidade e regras centrais.
-- `Projeto360.Aplicacao`: contratos e DTOs usados pelos casos de uso.
+- `Projeto360.Aplicacao`: contratos, DTOs e regras de negócio dos casos de uso (classes `XAplicacao`).
 - `Projeto360.Repositorio`: Entity Framework Core e SQLite.
-- `Projeto360.Servicos`: regras de aplicação/orquestração dos casos de uso.
 - `Projeto360.Api`: endpoints HTTP, Swagger e configuração de dependências.
 
 Observação: esta é uma reconstrução funcional baseada nos elementos que conseguimos recuperar das conversas, não uma cópia confirmada do enunciado original da Itera 360.

@@ -9,11 +9,11 @@ namespace Projeto360.Api.Controllers;
 [Route("api/[controller]")]
 public class UsuarioController : ControllerBase
 {
-    private readonly IUsuarioServico _usuarioServico;
+    private readonly IUsuarioAplicacao _usuarioAplicacao;
 
-    public UsuarioController(IUsuarioServico usuarioServico)
+    public UsuarioController(IUsuarioAplicacao usuarioAplicacao)
     {
-        _usuarioServico = usuarioServico;
+        _usuarioAplicacao = usuarioAplicacao;
     }
 
     // Lista os tipos de usuários.
@@ -61,7 +61,7 @@ public class UsuarioController : ControllerBase
             dados.Senha
         );
 
-        var usuarioCriado = await _usuarioServico.CriarAsync(usuario);
+        var usuarioCriado = await _usuarioAplicacao.CriarAsync(usuario);
 
         return Ok(new
         {
@@ -76,7 +76,7 @@ public class UsuarioController : ControllerBase
     [HttpGet("Listar")]
     public async Task<IActionResult> Listar()
     {
-        var usuarios = await _usuarioServico.ListarAsync();
+        var usuarios = await _usuarioAplicacao.ListarAsync();
 
         var resultado = usuarios.Select(usuario => new
         {
@@ -93,7 +93,7 @@ public class UsuarioController : ControllerBase
     [HttpDelete("Excluir/{id}")]
     public async Task<IActionResult> Excluir(int id)
     {
-        var excluido = await _usuarioServico.ExcluirAsync(id);
+        var excluido = await _usuarioAplicacao.ExcluirAsync(id);
 
         if (!excluido)
         {
@@ -126,7 +126,7 @@ public class UsuarioController : ControllerBase
             TipoUsuario = dados.TipoUsuario
         };
 
-        var atualizado = await _usuarioServico.AtualizarAsync(usuario);
+        var atualizado = await _usuarioAplicacao.AtualizarAsync(usuario);
 
         if (!atualizado)
         {

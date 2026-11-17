@@ -1,13 +1,13 @@
 using Projeto360.Aplicacao.Contratos;
 using Projeto360.Dominio.Entidades;
 
-namespace Projeto360.Servicos.Servicos;
+namespace Projeto360.Aplicacao;
 
-public class UsuarioServico : IUsuarioServico
+public class UsuarioAplicacao : IUsuarioAplicacao
 {
     private readonly IUsuarioRepositorio _usuarioRepositorio;
 
-    public UsuarioServico(IUsuarioRepositorio usuarioRepositorio)
+    public UsuarioAplicacao(IUsuarioRepositorio usuarioRepositorio)
     {
         _usuarioRepositorio = usuarioRepositorio;
     }

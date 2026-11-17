@@ -8,11 +8,11 @@ namespace Projeto360.Api.Controllers;
 [Route("api/[controller]")]
 public class TarefaController : ControllerBase
 {
-    private readonly ITarefaServico _servico;
+    private readonly ITarefaAplicacao _aplicacao;
 
-    public TarefaController(ITarefaServico servico)
+    public TarefaController(ITarefaAplicacao aplicacao)
     {
-        _servico = servico;
+        _aplicacao = aplicacao;
     }
 
     // GET: api/tarefa
@@ -20,14 +20,14 @@ public class TarefaController : ControllerBase
     [ProducesResponseType(typeof(List<TarefaRespostaDto>), StatusCodes.Status200OK)]
     public async Task<IActionResult> Listar()
     {
-        return Ok(await _servico.ListarAsync());
+        return Ok(await _aplicacao.ListarAsync());
     }
 
     // GET: api/tarefa/1
     [HttpGet("{id:int}")]
     public async Task<IActionResult> BuscarPorId(int id)
     {
-        var tarefa = await _servico.BuscarPorIdAsync(id);
+        var tarefa = await _aplicacao.BuscarPorIdAsync(id);
         return tarefa is null ? NotFound(new { mensagem = "Tarefa não encontrada." }) : Ok(tarefa);
     }
 
@@ -37,7 +37,7 @@ public class TarefaController : ControllerBase
     {
         try
         {
-            var tarefa = await _servico.CriarAsync(dto);
+            var tarefa = await _aplicacao.CriarAsync(dto);
             return CreatedAtAction(nameof(BuscarPorId), new { id = tarefa.Id }, tarefa);
         }
         catch (ArgumentException ex)
@@ -52,7 +52,7 @@ public class TarefaController : ControllerBase
     {
         try
         {
-            var tarefa = await _servico.AtualizarAsync(id, dto);
+            var tarefa = await _aplicacao.AtualizarAsync(id, dto);
             return tarefa is null ? NotFound(new { mensagem = "Tarefa não encontrada." }) : Ok(tarefa);
         }
         catch (ArgumentException ex)
@@ -65,7 +65,7 @@ public class TarefaController : ControllerBase
     [HttpPatch("{id:int}/concluir")]
     public async Task<IActionResult> Concluir(int id)
     {
-        var tarefa = await _servico.ConcluirAsync(id);
+        var tarefa = await _aplicacao.ConcluirAsync(id);
         return tarefa is null ? NotFound(new { mensagem = "Tarefa não encontrada." }) : Ok(tarefa);
     }
 
@@ -73,7 +73,7 @@ public class TarefaController : ControllerBase
     [HttpDelete("{id:int}")]
     public async Task<IActionResult> Excluir(int id)
     {
-        var excluida = await _servico.ExcluirAsync(id);
+        var excluida = await _aplicacao.ExcluirAsync(id);
         return excluida ? NoContent() : NotFound(new { mensagem = "Tarefa não encontrada." });
     }
 }

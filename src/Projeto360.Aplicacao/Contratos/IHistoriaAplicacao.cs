@@ -2,7 +2,7 @@ using Projeto360.Aplicacao.DTOs;
 
 namespace Projeto360.Aplicacao.Contratos;
 
-public interface IHistoriaServico
+public interface IHistoriaAplicacao
 {
     Task<IEnumerable<HistoriaRespostaDto>> ListarAsync();
 

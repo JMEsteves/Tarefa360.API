@@ -2,13 +2,13 @@ using Projeto360.Aplicacao.Contratos;
 using Projeto360.Aplicacao.DTOs;
 using Projeto360.Dominio.Entidades;
 
-namespace Projeto360.Servicos.Servicos;
+namespace Projeto360.Aplicacao;
 
-public class TarefaServico : ITarefaServico
+public class TarefaAplicacao : ITarefaAplicacao
 {
     private readonly ITarefaRepositorio _repositorio;
 
-    public TarefaServico(ITarefaRepositorio repositorio)
+    public TarefaAplicacao(ITarefaRepositorio repositorio)
     {
         _repositorio = repositorio;
     }

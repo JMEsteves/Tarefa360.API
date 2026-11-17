@@ -2,7 +2,7 @@ using Projeto360.Aplicacao.DTOs;
 
 namespace Projeto360.Aplicacao.Contratos;
 
-public interface IProjetoServico
+public interface IProjetoAplicacao
 {
     Task<IEnumerable<ProjetoRespostaDto>> ListarAsync();
 

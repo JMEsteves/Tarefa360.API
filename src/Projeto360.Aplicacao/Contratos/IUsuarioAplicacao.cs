@@ -2,7 +2,7 @@ using Projeto360.Dominio.Entidades;
 
 namespace Projeto360.Aplicacao.Contratos;
 
-public interface IUsuarioServico
+public interface IUsuarioAplicacao
 {
     Task<Usuario> CriarAsync(Usuario usuario);
     Task<List<Usuario>> ListarAsync();
