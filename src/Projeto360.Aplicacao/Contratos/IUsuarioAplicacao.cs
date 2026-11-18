@@ -8,4 +8,5 @@ public interface IUsuarioAplicacao
     Task<List<Usuario>> ListarAsync();
     Task<bool> ExcluirAsync(int id);
     Task<bool> AtualizarAsync(Usuario usuario);
+    Task<Usuario?> ObterPorEmailAsync(string email);
 }
