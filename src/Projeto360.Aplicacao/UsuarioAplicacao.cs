@@ -31,4 +31,9 @@ public class UsuarioAplicacao : IUsuarioAplicacao
     {
         return await _usuarioRepositorio.AtualizarAsync(usuario);
     }
+
+    public async Task<Usuario?> ObterPorEmailAsync(string email)
+    {
+        return await _usuarioRepositorio.ObterPorEmailAsync(email);
+    }
 }

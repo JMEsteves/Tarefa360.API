@@ -46,7 +46,6 @@ public class UsuarioRepositorio : IUsuarioRepositorio
         return true;
     }
 
-    // Atualiza os dados do usuário.
     public async Task<bool> AtualizarAsync(Usuario usuario)
     {
         var usuarioExistente = await _contexto.Usuarios.FindAsync(usuario.Id);
@@ -63,5 +62,12 @@ public class UsuarioRepositorio : IUsuarioRepositorio
         await _contexto.SaveChangesAsync();
 
         return true;
+    }
+
+    public async Task<Usuario?> ObterPorEmailAsync (string email)
+    {
+        return await _contexto.Usuarios
+            .AsNoTracking()
+            .FirstOrDefaultAsync(u => u.Email == email);
     }
 }
