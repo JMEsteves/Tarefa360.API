@@ -7,7 +7,9 @@ using Projeto360.Aplicacao;
 var builder = WebApplication.CreateBuilder(args);
 
 // Configuração dos serviços da API.
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(o => o.JsonSerializerOptions.Converters.Add(
+        new System.Text.Json.Serialization.JsonStringEnumConverter()));
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -51,6 +53,9 @@ builder.Services.AddScoped<IProjetoAplicacao, ProjetoAplicacao>();
 builder.Services.AddScoped<IHistoriaRepositorio, HistoriaRepositorio>();
 builder.Services.AddScoped<IHistoriaAplicacao, HistoriaAplicacao>();
 
+builder.Services.AddScoped<ISprintRepositorio, SprintRepositorio>();
+builder.Services.AddScoped<ISprintAplicacao, SprintAplicacao>();
+
 var app = builder.Build();
 
 // Cria o banco e as tabelas automaticamente.
@@ -83,6 +88,16 @@ using (var escopo = app.Services.CreateScope())
             ProjetoId INTEGER NOT NULL,
             FOREIGN KEY (ProjetoId) REFERENCES Projetos (Id) ON DELETE CASCADE
         );
+
+        CREATE TABLE IF NOT EXISTS Sprints (
+            Id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+            Nome TEXT NOT NULL,
+            DataInicio TEXT NOT NULL,
+            DataFinal TEXT NOT NULL,
+            Situacao INTEGER NOT NULL,
+            ProjetoId INTEGER NOT NULL,
+            FOREIGN KEY (ProjetoId) REFERENCES Projetos (Id) ON DELETE CASCADE
+        );
     ");
 }
 
@@ -91,6 +106,7 @@ app.UseCors();
 
 if (app.Environment.IsDevelopment())
 {
+    app.UseCors();
     app.UseSwagger();
     app.UseSwaggerUI();
 }

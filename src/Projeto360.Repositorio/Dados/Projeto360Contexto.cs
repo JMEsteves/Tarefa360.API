@@ -16,6 +16,8 @@ public class Projeto360Contexto : DbContext
 
     public DbSet<Historia> Historias { get; set; }
 
+    public DbSet<Sprint> Sprints { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
@@ -86,6 +88,32 @@ public class Projeto360Contexto : DbContext
             entidade.HasOne(h => h.Projeto)
                 .WithMany()
                 .HasForeignKey(h => h.ProjetoId)
+                .OnDelete(DeleteBehavior.Cascade);
+        });
+
+        modelBuilder.Entity<Sprint>(entidade =>
+        {
+            entidade.ToTable("Sprints");
+
+            entidade.HasKey(s => s.Id);
+
+            entidade.Property(s => s.Nome)
+                .IsRequired()
+                .HasMaxLength(100);
+
+            entidade.Property(s => s.DataInicio)
+                .IsRequired();
+
+            entidade.Property(s => s.DataFinal)
+                .IsRequired();
+
+            entidade.Property(s => s.Situacao)
+                .IsRequired();
+
+            entidade.HasOne(s => s.Projeto)
+                .WithMany()
+                .HasForeignKey(s => s.ProjetoId)
+                .IsRequired()
                 .OnDelete(DeleteBehavior.Cascade);
         });
     }
