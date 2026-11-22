@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Projeto360.Aplicacao.Contratos;
 using Projeto360.Dominio.Entidades;
+using Projeto360.Aplicacao.DTOs;
 
 namespace Projeto360.Api.Controllers;
 
@@ -16,7 +17,7 @@ public class UsuarioController : ControllerBase
         _usuarioAplicacao = usuarioAplicacao;
     }
 
-    // Lista os tipos de usuários.
+    
     [HttpGet("ListarTiposUsuario")]
     public IActionResult ListarTiposUsuario()
     {
@@ -30,7 +31,7 @@ public class UsuarioController : ControllerBase
         return Ok(tipos);
     }
 
-    // Realiza o cadastro de usuários.
+    
     [HttpPost("Criar")]
     public async Task<IActionResult> Criar([FromBody] UsuarioCriarDto dados)
     {
@@ -53,7 +54,7 @@ public class UsuarioController : ControllerBase
             TipoUsuario = dados.TipoUsuario
         };
 
-        // Criptografa a senha antes de salvar.
+        
         var passwordHasher = new PasswordHasher<Usuario>();
 
         usuario.SenhaHash = passwordHasher.HashPassword(
@@ -72,7 +73,7 @@ public class UsuarioController : ControllerBase
         });
     }
 
-    // Lista os usuários cadastrados.
+    
     [HttpGet("Listar")]
     public async Task<IActionResult> Listar()
     {
@@ -89,7 +90,7 @@ public class UsuarioController : ControllerBase
         return Ok(resultado);
     }
 
-    // Exclui um usuário pelo ID.
+    
     [HttpDelete("Excluir/{id}")]
     public async Task<IActionResult> Excluir(int id)
     {
@@ -103,7 +104,7 @@ public class UsuarioController : ControllerBase
         return Ok("Usuário excluído com sucesso.");
     }
 
-    // Atualiza os dados de um usuário.
+    
     [HttpPut("Atualizar")]
     public async Task<IActionResult> Atualizar([FromBody] UsuarioAtualizarDto dados)
     {
@@ -135,9 +136,52 @@ public class UsuarioController : ControllerBase
 
         return Ok("Usuário atualizado com sucesso.");
     }
+
+
+    [HttpPost("Login")]
+    public async Task<IActionResult> Login([FromBody] UsuarioLoginDto dados)
+    {
+        if (string.IsNullOrWhiteSpace(dados.Email) || 
+        string.IsNullOrWhiteSpace(dados.Senha))
+        {
+            return BadRequest("Informe e-mail e senha.");
+        }
+
+        var usuario = await _usuarioAplicacao.ObterPorEmailAsync(dados.Email);
+
+        if(usuario == null)
+        {
+            return Unauthorized("E-mail ou senha inválidos");
+        }
+
+        var passwordHasher = new PasswordHasher<Usuario>();
+
+        var resultado = passwordHasher.VerifyHashedPassword(
+            usuario,
+            usuario.SenhaHash,
+            dados.Senha
+        );
+
+        if (resultado == PasswordVerificationResult.Failed)
+        {
+            return Unauthorized("E-mail ou senha inválidos");
+        }
+
+        return Ok(new
+        {
+            usuario.Id,
+            usuario.Nome,
+            usuario.Email,
+            usuario.TipoUsuario
+
+        });
+
+    }
 }
 
-// Dados recebidos do formulário React.
+    
+
+
 public class UsuarioCriarDto
 {
     public string Nome { get; set; } = string.Empty;
@@ -146,7 +190,7 @@ public class UsuarioCriarDto
     public int TipoUsuario { get; set; }
 }
 
-// Dados recebidos para atualizar um usuário.
+
 public class UsuarioAtualizarDto
 {
     public int Id { get; set; }
