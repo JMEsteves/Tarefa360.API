@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Projeto360.Aplicacao.Contratos;
 using Projeto360.Dominio.Entidades;
 using Projeto360.Aplicacao.DTOs;
+using Projeto360.Api.Dtos;
 
 namespace Projeto360.Api.Controllers;
 
